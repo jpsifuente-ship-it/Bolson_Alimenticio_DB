@@ -1,0 +1,12 @@
+{{ adultos_por_estudiante|json_script:"adultos-por-estudiante" }}
+<script>
+(function () {
+  var mapa = JSON.parse(document.getElementById('adultos-por-estudiante').textContent);
+  var estudiante = document.getElementById('id_estudiante');
+  var adulto = document.getElementById('id_adulto');
+  if (!estudiante || !adulto) return;
+  function sincronizar() { adulto.value = mapa[estudiante.value] || ''; }
+  estudiante.addEventListener('change', sincronizar);
+  sincronizar();
+})();
+</script>

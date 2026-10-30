@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block titulo %}Nuevo punto de entrega{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel">
+  <h2>Nuevo punto de entrega</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field }}
+    {{ field.errors }}
+    {% endfor %}
+    <div class="mc-acciones">
+      <button type="submit" class="mc-btn verde">Crear</button>
+      <a class="mc-btn" href="{% url 'punto_de_entrega:list' %}">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

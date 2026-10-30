@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+{% block titulo %}Colegios{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel">
+  <h2>Colegios</h2>
+  {% if perms.colegio.add_colegio %}<p><a class="mc-btn verde" href="{% url 'colegio:create' %}">Nuevo colegio</a></p>{% endif %}
+
+  {% if object_list %}
+  <div class="mc-scroll">
+    <table class="mc-table">
+      <thead>
+        <tr>
+        <th>Colegio</th>
+        <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in object_list %}
+        <tr>
+        <td>{{ o }}</td>
+        <td class="mc-acciones">
+          {% if perms.colegio.view_colegio %}<a class="mc-btn chico" href="{% url 'colegio:detail' o.pk %}">Ver</a>{% endif %}
+          {% if perms.colegio.change_colegio %}<a class="mc-btn chico" href="{% url 'colegio:update' o.pk %}">Editar</a>{% endif %}
+          {% if perms.colegio.delete_colegio %}<a class="mc-btn chico rojo" href="{% url 'colegio:delete' o.pk %}">Eliminar</a>{% endif %}
+        </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="mc-slot"><p>Todavía no hay registros. Creá el primero con «Nuevo colegio».</p></div>
+  {% endif %}
+</section>
+{% endblock %}

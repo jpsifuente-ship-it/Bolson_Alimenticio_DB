@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block titulo %}Iniciar sesión{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel mc-login">
+  <h2>Iniciar sesión</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+    {{ form.non_field_errors }}
+    {% for field in form %}
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field }}
+    {{ field.errors }}
+    {% endfor %}
+    <div class="mc-acciones">
+      <button type="submit" class="mc-btn verde">Entrar</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

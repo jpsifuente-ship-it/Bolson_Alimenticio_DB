@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+{% block titulo %}Estudiante{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel">
+  <h2>Estudiante</h2>
+  <dl class="mc-detalle mc-slot">
+    <dt>Nombre</dt>
+    <dd>{{ object.nombre }}</dd>
+    <dt>Apellido</dt>
+    <dd>{{ object.apellido }}</dd>
+    <dt>DNI</dt>
+    <dd>{{ object.dni }}</dd>
+    <dt>Fecha de nacimiento</dt>
+    <dd>{{ object.fecha_nacimiento|date:"d/m/Y" }}</dd>
+    <dt>Curso</dt>
+    <dd>{{ object.curso }}</dd>
+    <dt>Colegio</dt>
+    <dd>{{ object.colegio }}</dd>
+  </dl>
+  <div class="mc-acciones">
+    {% if perms.estudiante.change_estudiante %}<a class="mc-btn" href="{% url 'estudiante:update' object.pk %}">Editar</a>{% endif %}
+    {% if perms.estudiante.delete_estudiante %}<a class="mc-btn rojo" href="{% url 'estudiante:delete' object.pk %}">Eliminar</a>{% endif %}
+    <a class="mc-btn" href="{% url 'estudiante:list' %}">Volver</a>
+  </div>
+</section>
+{% endblock %}

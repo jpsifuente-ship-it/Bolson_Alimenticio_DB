@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% block titulo %}Eliminar colegio{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel">
+  <h2>Eliminar colegio</h2>
+  <div class="mc-slot"><p>¿Eliminar «{{ object }}»? Esta acción no se puede deshacer.</p></div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mc-acciones">
+      <button type="submit" class="mc-btn rojo">Eliminar</button>
+      <a class="mc-btn" href="{% url 'colegio:list' %}">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base/base.html" %}
+{% block titulo %}Acceso denegado{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel mc-login">
+  <h2>Acceso denegado</h2>
+  <div class="mc-slot"><p>No tenés permiso para hacer esto. Si creés que es un error, pedile acceso al administrador.</p></div>
+  <div class="mc-acciones">
+    <a class="mc-btn" href="{% url 'inicio' %}">Volver al inicio</a>
+  </div>
+</section>
+{% endblock %}

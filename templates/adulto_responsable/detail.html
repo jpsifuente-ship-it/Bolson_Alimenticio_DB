@@ -1,0 +1,23 @@
+{% extends "base/base.html" %}
+{% block titulo %}Adulto responsable{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel">
+  <h2>Adulto responsable</h2>
+  <dl class="mc-detalle mc-slot">
+    <dt>Nombre</dt>
+    <dd>{{ object.nombre }}</dd>
+    <dt>Apellido</dt>
+    <dd>{{ object.apellido }}</dd>
+    <dt>DNI</dt>
+    <dd>{{ object.dni }}</dd>
+    <dt>Estudiante</dt>
+    <dd>{{ object.estudiante }}</dd>
+  </dl>
+  <div class="mc-acciones">
+    {% if perms.adulto_responsable.change_adultoresponsable %}<a class="mc-btn" href="{% url 'adulto_responsable:update' object.pk %}">Editar</a>{% endif %}
+    {% if perms.adulto_responsable.delete_adultoresponsable %}<a class="mc-btn rojo" href="{% url 'adulto_responsable:delete' object.pk %}">Eliminar</a>{% endif %}
+    <a class="mc-btn" href="{% url 'adulto_responsable:list' %}">Volver</a>
+  </div>
+</section>
+{% endblock %}

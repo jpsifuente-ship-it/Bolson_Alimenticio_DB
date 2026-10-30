@@ -1,0 +1,42 @@
+{% extends "base/base.html" %}
+{% block titulo %}Adultos responsables{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel">
+  <h2>Adultos responsables</h2>
+  {% if perms.adulto_responsable.add_adultoresponsable %}<p><a class="mc-btn verde" href="{% url 'adulto_responsable:create' %}">Nuevo adulto responsable</a></p>{% endif %}
+
+  {% if object_list %}
+  <div class="mc-scroll">
+    <table class="mc-table">
+      <thead>
+        <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>DNI</th>
+        <th>Estudiante</th>
+        <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in object_list %}
+        <tr>
+        <td>{{ o.nombre }}</td>
+        <td>{{ o.apellido }}</td>
+        <td>{{ o.dni }}</td>
+        <td>{{ o.estudiante }}</td>
+        <td class="mc-acciones">
+          {% if perms.adulto_responsable.view_adultoresponsable %}<a class="mc-btn chico" href="{% url 'adulto_responsable:detail' o.pk %}">Ver</a>{% endif %}
+          {% if perms.adulto_responsable.change_adultoresponsable %}<a class="mc-btn chico" href="{% url 'adulto_responsable:update' o.pk %}">Editar</a>{% endif %}
+          {% if perms.adulto_responsable.delete_adultoresponsable %}<a class="mc-btn chico rojo" href="{% url 'adulto_responsable:delete' o.pk %}">Eliminar</a>{% endif %}
+        </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="mc-slot"><p>Todavía no hay registros. Creá el primero con «Nuevo adulto responsable».</p></div>
+  {% endif %}
+</section>
+{% endblock %}

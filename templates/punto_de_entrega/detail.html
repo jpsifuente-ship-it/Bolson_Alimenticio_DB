@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block titulo %}Punto de entrega{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel">
+  <h2>Punto de entrega</h2>
+  <dl class="mc-detalle mc-slot">
+    <dt>Nombre</dt>
+    <dd>{{ object.nombre }}</dd>
+    <dt>Fecha de retiro</dt>
+    <dd>{{ object.fecha_retiro|date:"d/m/Y" }}</dd>
+    <dt>Motivo</dt>
+    <dd>{{ object.motivo_retiro|linebreaksbr }}</dd>
+  </dl>
+  <div class="mc-acciones">
+    {% if perms.punto_de_entrega.change_confirmacionderetiro %}<a class="mc-btn" href="{% url 'punto_de_entrega:update' object.pk %}">Editar</a>{% endif %}
+    {% if perms.punto_de_entrega.delete_confirmacionderetiro %}<a class="mc-btn rojo" href="{% url 'punto_de_entrega:delete' object.pk %}">Eliminar</a>{% endif %}
+    <a class="mc-btn" href="{% url 'punto_de_entrega:list' %}">Volver</a>
+  </div>
+</section>
+{% endblock %}

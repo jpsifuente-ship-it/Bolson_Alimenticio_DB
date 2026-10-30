@@ -1,0 +1,44 @@
+{% extends "base/base.html" %}
+{% block titulo %}Estudiantes{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel">
+  <h2>Estudiantes</h2>
+  {% if perms.estudiante.add_estudiante %}<p><a class="mc-btn verde" href="{% url 'estudiante:create' %}">Nuevo estudiante</a></p>{% endif %}
+
+  {% if object_list %}
+  <div class="mc-scroll">
+    <table class="mc-table">
+      <thead>
+        <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>DNI</th>
+        <th>Curso</th>
+        <th>Colegio</th>
+        <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in object_list %}
+        <tr>
+        <td>{{ o.nombre }}</td>
+        <td>{{ o.apellido }}</td>
+        <td>{{ o.dni }}</td>
+        <td>{{ o.curso }}</td>
+        <td>{{ o.colegio }}</td>
+        <td class="mc-acciones">
+          {% if perms.estudiante.view_estudiante %}<a class="mc-btn chico" href="{% url 'estudiante:detail' o.pk %}">Ver</a>{% endif %}
+          {% if perms.estudiante.change_estudiante %}<a class="mc-btn chico" href="{% url 'estudiante:update' o.pk %}">Editar</a>{% endif %}
+          {% if perms.estudiante.delete_estudiante %}<a class="mc-btn chico rojo" href="{% url 'estudiante:delete' o.pk %}">Eliminar</a>{% endif %}
+        </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="mc-slot"><p>Todavía no hay registros. Creá el primero con «Nuevo estudiante».</p></div>
+  {% endif %}
+</section>
+{% endblock %}

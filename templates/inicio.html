@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel">
+  <h2>Menú principal</h2>
+  <div class="mc-menu">
+    {% if perms.retiro.view_retiro %}<a class="mc-btn" href="{% url 'retiro:list' %}">Retiros</a>{% endif %}
+    {% if perms.estudiante.view_estudiante %}<a class="mc-btn" href="{% url 'estudiante:list' %}">Estudiantes</a>{% endif %}
+    {% if perms.adulto_responsable.view_adultoresponsable %}<a class="mc-btn" href="{% url 'adulto_responsable:list' %}">Adultos responsables</a>{% endif %}
+    {% if perms.colegio.view_colegio %}<a class="mc-btn" href="{% url 'colegio:list' %}">Colegios</a>{% endif %}
+    {% if perms.punto_de_entrega.view_confirmacionderetiro %}<a class="mc-btn" href="{% url 'punto_de_entrega:list' %}">Puntos de entrega</a>{% endif %}
+    {% if perms.trabajador_s.view_trabajadorsocial %}<a class="mc-btn" href="{% url 'trabajador_s:list' %}">Trabajadores sociales</a>{% endif %}
+  </div>
+</section>
+{% endblock %}

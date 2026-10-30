@@ -1,0 +1,40 @@
+<section class="mc-panel">
+  <h2>{{ titulo }}</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field }}
+    {{ field.errors }}
+    {% if field.name == 'estudiante' %}
+    <label for="adulto-display">Adulto responsable</label>
+    <input type="text" id="adulto-display" readonly tabindex="-1"
+           value="{{ object.adulto|default_if_none:'' }}">
+    {% endif %}
+    {% endfor %}
+    <div class="mc-acciones">
+      <button type="submit" class="mc-btn verde">{{ boton }}</button>
+      <a class="mc-btn" href="{% url 'retiro:list' %}">Cancelar</a>
+    </div>
+  </form>
+</section>
+
+<style>
+  .mc-panel input[readonly] { background: #2b2b2b; color: #aaaaaa; border-color: #555555; cursor: not-allowed; }
+</style>
+
+{{ adultos_por_estudiante|json_script:"adultos-data" }}
+<script>
+  (function () {
+    var adultos = JSON.parse(document.getElementById('adultos-data').textContent);
+    var estudiante = document.getElementById('id_estudiante');
+    var display = document.getElementById('adulto-display');
+    function actualizar() {
+      if (!estudiante.value) { display.value = ''; return; }
+      display.value = adultos[estudiante.value] || 'Este estudiante no tiene adulto asignado';
+    }
+    estudiante.addEventListener('change', actualizar);
+    actualizar();
+  })();
+</script>

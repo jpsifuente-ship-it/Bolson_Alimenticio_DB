@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+{% block titulo %}Retiro{% endblock %}
+
+{% block contenido %}
+<section class="mc-panel">
+  <h2>Retiro</h2>
+  <dl class="mc-detalle mc-slot">
+    <dt>Estudiante</dt>
+    <dd>{{ object.estudiante }}</dd>
+    <dt>Adulto</dt>
+    <dd>{{ object.adulto }}</dd>
+    <dt>Fecha</dt>
+    <dd>{{ object.fecha_retiro|date:"d/m/Y" }}</dd>
+    <dt>Hora</dt>
+    <dd>{{ object.hora_retiro|time:"H:i" }}</dd>
+    <dt>Confirmado</dt>
+    <dd>{{ object.confirmacion_retiro|yesno:"Sí,No" }}</dd>
+    <dt>Observación</dt>
+    <dd>{{ object.observacion|default:"—"|linebreaksbr }}</dd>
+  </dl>
+  <div class="mc-acciones">
+    {% if perms.retiro.change_retiro %}<a class="mc-btn" href="{% url 'retiro:update' object.pk %}">Editar</a>{% endif %}
+    {% if perms.retiro.delete_retiro %}<a class="mc-btn rojo" href="{% url 'retiro:delete' object.pk %}">Eliminar</a>{% endif %}
+    <a class="mc-btn" href="{% url 'retiro:list' %}">Volver</a>
+  </div>
+</section>
+{% endblock %}
