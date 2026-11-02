@@ -1,0 +1,280 @@
+/* base.css - estilo Minecraft del sitio */
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("../fonts/Minecraft.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --mc-font: "Minecraft", "VT323", monospace;
+  --mc-black: #000;
+  --mc-white: #fff;
+  --mc-gui: #c6c6c6;          /* gris de inventario */
+  --mc-gui-light: #ffffff;
+  --mc-gui-dark: #555555;
+  --mc-slot: #8b8b8b;
+  --mc-btn: #6f6f6f;
+  --mc-btn-light: #a8a8a8;
+  --mc-btn-dark: #3b3b3b;
+  --mc-btn-hover: #7b86c9;    /* azul-violeta al pasar el mouse */
+  --mc-text-shadow: #3f3f3f;
+  --mc-grass: #5d9b2f;
+  --mc-yellow: #ffff55;
+  --mc-red: #ff5555;
+  --mc-green: #55ff55;
+  --mc-ink: #373737;          /* texto oscuro sobre panel gris */
+}
+
+* { box-sizing: border-box; image-rendering: pixelated; }
+
+html { font-size: 22px; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--mc-font);
+  color: var(--mc-white);
+  line-height: 1.25;
+  /* Fondo de tierra (tile 16x16 en SVG, escalado) */
+  background-color: #6b4a2f;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%236b4a2f'/%3E%3Cg fill='%2358391f'%3E%3Crect x='1' y='2' width='2' height='1'/%3E%3Crect x='7' y='0' width='1' height='2'/%3E%3Crect x='12' y='3' width='2' height='2'/%3E%3Crect x='4' y='6' width='1' height='2'/%3E%3Crect x='10' y='8' width='2' height='1'/%3E%3Crect x='0' y='11' width='2' height='2'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3Crect x='13' y='12' width='1' height='2'/%3E%3C/g%3E%3Cg fill='%238a6340'%3E%3Crect x='3' y='0' width='1' height='1'/%3E%3Crect x='9' y='4' width='2' height='1'/%3E%3Crect x='14' y='7' width='1' height='2'/%3E%3Crect x='2' y='9' width='1' height='1'/%3E%3Crect x='8' y='11' width='1' height='2'/%3E%3Crect x='11' y='14' width='2' height='1'/%3E%3Crect x='5' y='3' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%2342291a'%3E%3Crect x='15' y='1' width='1' height='1'/%3E%3Crect x='5' y='10' width='1' height='1'/%3E%3Crect x='10' y='1' width='1' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 96px 96px;
+}
+/* oscurece la tierra igual que la pantalla de título */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  pointer-events: none;
+  z-index: 0;
+}
+body > * { position: relative; z-index: 1; }
+
+a { color: var(--mc-yellow); }
+
+/* ---------- Texto con sombra tipo Minecraft ---------- */
+h1, h2, h3, p, a, label, th, td, li, button, input, select, textarea {
+  text-shadow: 2px 2px 0 var(--mc-text-shadow);
+}
+
+/* ---------- Encabezado ---------- */
+.mc-header {
+  background: #313131;
+  border-bottom: 4px solid var(--mc-black);
+  box-shadow: inset 0 -4px 0 #1c1c1c, inset 0 4px 0 #4a4a4a;
+  padding: 1rem 1rem .9rem;
+}
+.mc-header-inner { max-width: 1100px; margin: 0 auto; }
+
+.mc-logo {
+  margin: 0 0 .8rem;
+  text-align: center;
+  font-size: 2.4rem;
+  letter-spacing: 2px;
+  color: #c6c6c6;
+  text-shadow:
+    0 4px 0 #555,
+    4px 4px 0 #222,
+    -2px 0 0 #222, 2px 0 0 #222, 0 -2px 0 #222;
+}
+.mc-logo small {
+  display: block;
+  font-size: .6rem;
+  color: var(--mc-yellow);
+  text-shadow: 2px 2px 0 #3f3f00;
+  margin-top: .15rem;
+}
+
+/* ---------- Navegación: botones de Minecraft ---------- */
+.mc-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  justify-content: center;
+}
+
+.mc-btn, .mc-nav a, button.mc-btn, input[type="submit"].mc-btn {
+  display: inline-block;
+  font-family: var(--mc-font);
+  font-size: 1rem;
+  color: #e0e0e0;
+  text-decoration: none;
+  text-align: center;
+  padding: .55rem 1.1rem;
+  background: var(--mc-btn);
+  border: 2px solid var(--mc-black);
+  box-shadow:
+    inset 3px 3px 0 var(--mc-btn-light),
+    inset -3px -3px 0 var(--mc-btn-dark);
+  cursor: pointer;
+  min-width: 8rem;
+}
+.mc-btn:hover, .mc-nav a:hover,
+.mc-btn:focus-visible, .mc-nav a:focus-visible {
+  background: var(--mc-btn-hover);
+  border-color: var(--mc-white);
+  color: var(--mc-yellow);
+  outline: none;
+}
+.mc-btn:active, .mc-nav a:active {
+  box-shadow:
+    inset 3px 3px 0 var(--mc-btn-dark),
+    inset -3px -3px 0 var(--mc-btn-light);
+}
+.mc-nav a.activo {
+  background: #4f4f4f;
+  color: var(--mc-yellow);
+  box-shadow:
+    inset 3px 3px 0 var(--mc-btn-dark),
+    inset -3px -3px 0 var(--mc-btn-light);
+}
+.mc-btn.verde { background: #3d7a1f; box-shadow: inset 3px 3px 0 #7fc24a, inset -3px -3px 0 #25490f; }
+.mc-btn.verde:hover { background: #4a9626; }
+.mc-btn.rojo  { background: #8a2b2b; box-shadow: inset 3px 3px 0 #d36a6a, inset -3px -3px 0 #4f1414; }
+.mc-btn.rojo:hover  { background: #b03a3a; }
+.mc-btn[disabled] { background: #3a3a3a; color: #888; cursor: not-allowed; border-color: #000; }
+
+/* ---------- Contenido principal ---------- */
+.mc-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+/* Panel estilo inventario */
+.mc-panel {
+  background: var(--mc-gui);
+  color: var(--mc-ink);
+  border: 2px solid var(--mc-black);
+  box-shadow:
+    inset 4px 4px 0 var(--mc-gui-light),
+    inset -4px -4px 0 var(--mc-gui-dark);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.mc-panel h1, .mc-panel h2, .mc-panel h3,
+.mc-panel p, .mc-panel label, .mc-panel li, .mc-panel th, .mc-panel td {
+  color: var(--mc-ink);
+  text-shadow: none;
+}
+.mc-panel h1, .mc-panel h2 { margin: 0 0 .75rem; font-weight: normal; }
+.mc-panel a { color: #1f4fbf; text-shadow: none; }
+
+/* Hueco (slot) hundido */
+.mc-slot {
+  background: var(--mc-slot);
+  border: 2px solid var(--mc-black);
+  box-shadow: inset 3px 3px 0 var(--mc-gui-dark), inset -3px -3px 0 var(--mc-gui-light);
+  padding: .75rem;
+}
+
+/* ---------- Formularios ---------- */
+.mc-panel label { display: block; margin: .8rem 0 .25rem; }
+.mc-panel input[type="text"],
+.mc-panel input[type="email"],
+.mc-panel input[type="password"],
+.mc-panel input[type="number"],
+.mc-panel input[type="date"],
+.mc-panel input[type="time"],
+.mc-panel select,
+.mc-panel textarea {
+  width: 100%;
+  font-family: var(--mc-font);
+  font-size: 1rem;
+  color: var(--mc-white);
+  text-shadow: 2px 2px 0 var(--mc-text-shadow);
+  background: #000;
+  border: 2px solid #a0a0a0;
+  padding: .45rem .6rem;
+}
+.mc-panel input:focus, .mc-panel select:focus, .mc-panel textarea:focus {
+  outline: none;
+  border-color: var(--mc-white);
+}
+.errorlist { list-style: none; margin: .3rem 0; padding: 0; color: #a00000; }
+
+/* ---------- Tablas (lista de objetos) ---------- */
+.mc-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--mc-slot);
+  border: 2px solid var(--mc-black);
+}
+.mc-table th {
+  background: #4a4a4a;
+  color: var(--mc-white);
+  text-shadow: 2px 2px 0 var(--mc-text-shadow);
+  text-align: left;
+  font-weight: normal;
+  padding: .5rem .75rem;
+  border: 2px solid var(--mc-black);
+}
+.mc-table td {
+  padding: .5rem .75rem;
+  border: 2px solid var(--mc-black);
+  color: var(--mc-white);
+  text-shadow: 2px 2px 0 var(--mc-text-shadow);
+}
+.mc-table tr:hover td { background: #9a9ad0; }
+
+/* ---------- Mensajes (django.contrib.messages) como chat/toast ---------- */
+.mc-mensajes { list-style: none; margin: 0 0 1rem; padding: 0; }
+.mc-mensajes li {
+  background: rgba(0,0,0,.6);
+  border-left: 4px solid var(--mc-white);
+  padding: .4rem .75rem;
+  margin-bottom: .4rem;
+}
+.mc-mensajes li.success { border-color: var(--mc-green);  color: var(--mc-green); }
+.mc-mensajes li.error   { border-color: var(--mc-red);    color: var(--mc-red); }
+.mc-mensajes li.warning { border-color: var(--mc-yellow); color: var(--mc-yellow); }
+.mc-mensajes li.info    { border-color: #55ffff;          color: #55ffff; }
+
+/* ---------- Pie de página ---------- */
+.mc-footer {
+  background: #313131;
+  border-top: 4px solid var(--mc-black);
+  box-shadow: inset 0 4px 0 #4a4a4a;
+  padding: 1rem;
+  text-align: center;
+  font-size: .85rem;
+  color: #aaaaaa;
+}
+.mc-footer p { margin: 0; }
+.mc-footer .splash { color: var(--mc-yellow); text-shadow: 2px 2px 0 #3f3f00; }
+
+/* ---------- Extras para las pantallas CRUD ---------- */
+.mc-panel a.mc-btn { color: #e0e0e0; text-shadow: 2px 2px 0 var(--mc-text-shadow); }
+.mc-panel a.mc-btn:hover, .mc-panel a.mc-btn:focus-visible { color: var(--mc-yellow); }
+.mc-btn.chico { min-width: 0; padding: .2rem .7rem; font-size: .85rem; }
+.mc-acciones { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+td.mc-acciones { margin-top: 0; }
+.mc-scroll { overflow-x: auto; }
+.mc-menu { display: grid; gap: .6rem; max-width: 520px; margin: 0 auto; }
+.mc-menu .mc-btn { display: block; width: 100%; padding: .8rem 1rem; }
+.mc-panel input[type="checkbox"] { width: 1.2rem; height: 1.2rem; accent-color: var(--mc-grass); }
+.mc-detalle { margin: 0; }
+.mc-detalle dt { color: var(--mc-yellow); text-shadow: 2px 2px 0 #3f3f00; margin-top: .6rem; }
+.mc-detalle dt:first-child { margin-top: 0; }
+.mc-detalle dd { margin: 0; color: var(--mc-white); text-shadow: 2px 2px 0 var(--mc-text-shadow); }
+
+.mc-sesion { display: flex; justify-content: center; align-items: center; gap: .75rem; margin-top: .75rem; color: #aaaaaa; }
+.mc-login { max-width: 440px; margin: 0 auto; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  html { font-size: 18px; }
+  .mc-logo { font-size: 1.8rem; }
+  .mc-nav a { flex: 1 1 45%; min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ---------- Mensajes que se pueden cerrar (usa base.js) ---------- */
+.mc-mensajes li { cursor: pointer; transition: opacity .4s; }
+.mc-mensajes li.oculto { opacity: 0; }
+
